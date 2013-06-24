@@ -1,0 +1,15 @@
+#!/bin/sh
+
+PROGPATH="/usr/lib/nagios/plugins"
+. "$PROGPATH/utils.sh"
+
+REBOOT_PKGS="/var/run/reboot-required.pkgs"
+
+if [ -f "$REBOOT_PKGS" ]; then
+        echo "WARNING : Packages pending reboot: `cat \"$REBOOT_PKGS\" | tr -s '\n' ' '`"
+        exit $STATE_WARNING
+else
+        echo "OK : No pending updates requiring reboot"
+        exit $STATE_OK
+fi
+

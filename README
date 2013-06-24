@@ -1,0 +1,4 @@
+A random collection of Nagios/Icinga plugins I've written:
+
+ * check_reboot_req: Checks if the Ubuntu server has a pending reboot
+
