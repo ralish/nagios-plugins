@@ -77,9 +77,14 @@ if __name__ == '__main__':
     args = parse_args()
 
     if not args:
-        status = NAGIOS_FAILED
-    else:
+        sys.exit(NAGIOS_FAILED)
+
+    try:
         expectations = get_expectations(args)
-        status = evaluate_status(expectations)
+    except urllib2.HTTPError, e:
+        print "Encountered HTTP error code %s trying to retrieve expectation details!" % e.code
+        sys.exit(NAGIOS_FAILED)
+
+    status = evaluate_status(expectations)
 
     sys.exit(status)
